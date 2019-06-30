@@ -4,6 +4,7 @@ from ..models import User, Pitch, Comments
 from .forms import PitchForm, UpdateProfile, CommentsForm
 from .. import db, photos
 from flask_login import login_required,current_user
+from datetime import datetime
 
 @main.route('/')
 def index():
