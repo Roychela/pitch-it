@@ -58,8 +58,8 @@ class Pitch(db.Model):
         return pitch
 
     @classmethod
-    def get_pitches(cls,category):
-        pitches = Pitch.query.filter_by(category=category).all()
+    def get_pitches(cls,pitch_category):
+        pitches = Pitch.query.filter_by(pitch_category=pitch_category).all()
         return pitches
 
 class Comments(db.Model):
