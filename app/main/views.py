@@ -20,6 +20,40 @@ def index():
     title = 'Home - Welcome to The best One Minute Pitch Online Website'
     
     return render_template('index.html', title = title, interview=interview_pitches, product=product_pitches, promotion=promotion_pitches, pickup=pickup_lines)
+
+@main.route('/pitch/<int:id>', methods = ['GET','POST'])
+def pitch(id):
+    pitch = Pitch.get_pitch(id)
+    posted = pitch.posted.strftime('%b %d, %Y')
+
+    if request.args.get("upvote"):
+        pitch.upvotes += 1
+
+        db.session.add(pitch)
+        db.session.commit()
+
+        return redirect("/pitch/{pitch_id}".format(pitch_id=pitch.id)) 
+
+    elif request.args.get("downvote"):
+        pitch.downvotes+=1
+
+        db.session.add(pitch)
+        db.session.commit()
+
+        return redirect("/pitch/{pitch_id}".format(pitch_id=pitch.id))
+
+    comment_form = CommentsForm()
+    if comment_form.validate_on_submit():
+        comment = comment_form.text.data
+
+        new_comment = Comments(comment = comment,user = current_user,pitch_id = pitch)
+
+        new_comment.save_comment()
+
+
+    comments = Comments.get_comments(pitch)
+
+    return render_template("pitch.html", pitch = pitch, comment_form = comment_form, comments = comments, date = posted)   
 @main.route('/pitch/new/', methods = ['GET','POST'])
 @login_required
 def new_pitch():
