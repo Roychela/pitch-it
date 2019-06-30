@@ -3,6 +3,7 @@ from . import main
 from ..models import User, Pitch, Comments
 from .forms import PitchForm, UpdateProfile, CommentsForm
 from .. import db
+from flask_login import login_required,current_user
 
 @main.route('/')
 def index():
@@ -19,6 +20,20 @@ def index():
     title = 'Home - Welcome to The best One Minute Pitch Online Website'
     
     return render_template('index.html', title = title, interview=interview_pitches, product=product_pitches, promotion=promotion_pitches, pickup=pickup_lines)
+@main.route('/pitch/new/', methods = ['GET','POST'])
+@login_required
+def new_pitch():
+    form = PitchForm()
+
+    if form.validate_on_submit():
+        pitch = form.pitch.data
+        category = form.category.data
+        new_pitch = Pitch(pitch_content=pitch,pitch_category=category,user=current_user, upvotes=0, downvotes=0)
+        new_pitch.save_pitch()
+        return redirect(url_for('.index'))
+
+    title = 'One Minute pitch'
+    return render_template('new_pitch.html',title = title, pitch_form=form)
 
 @main.route('/user/<uname>')
 def profile(uname):
