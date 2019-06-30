@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+<!-- Content block -->
+{% block content %}
+
+<div class='container'>
+<!-- Popular movie -->
+<h3> Interview Pitches</h3>
+<ul>
+    {{ macro.displayPitchesList(interview)}}
+</ul>
+</div>
+
+<div class='container'>
+<!-- Upcoming movie  -->
+<h3> Product Pitches </h3>
+<ul>
+    {{ macro.displayPitchesList(product)}}
+</ul>
+</div>
+
+<div class='container'>
+<!-- Now showing movie -->
+<h3>Promotion Pitches</h3>
+<ul>
+    {{ macro.displayPitchesList(promotion)}}
+</ul>
+
+
+</div>
+<div class='container'>
+<!-- Upcoming movie  -->
+<h3> Product Pitches </h3>
+<ul>
+    {{ macro.displayPitchesList(pickup)}}
+</ul>
+</div>
+
+{% endblock%}
