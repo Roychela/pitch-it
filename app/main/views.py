@@ -69,6 +69,13 @@ def new_pitch():
     title = 'One Minute pitch'
     return render_template('new_pitch.html',title = title, pitch_form=form)
 
+@main.route('/user/<uname>/pitches')
+def user_profile_pitches(uname):
+    user = User.query.filter_by(username=uname).first()
+    pitches = Pitch.query.filter_by(user_id = user.id).all()
+
+    return render_template("profile/pitches.html", user=user,pitches=pitches)
+
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
