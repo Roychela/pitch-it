@@ -9,17 +9,19 @@
         <span>
         <p>Posted on {{date}} by {{pitch.user.username| capitalize}}</p>
         <a href="/pitch/{{pitch.id}}?upvote=1">
-            <i class="far fa-thumbs-up"></i>
+        <i class="fas fa-thumbs-up"></i>
+            <i class="material-icons">thumb_up</i>
         </a>{{pitch.upvotes}} <a href="/pitch/{{pitch.id}}?downvote=1">
-            <i class="far fa-thumbs-down"></i>
+            <i class="material-icons">thumb_down</i>
         </a>{{pitch.downvotes}}</span>
+         <a class="ratings" href="/pitch/new/"> Write a new pitch</a>
     </div>
     <div class="row">
-        <h3>Comments</h4>
         <hr>
         {% if current_user.is_authenticated %}
             {{ wtf.quick_form(comment_form) }}
         {% endif %}
+        <h3>Comments</h4>
         {{macro.displayComments(comments)}}
     </div>
 </div>

@@ -1,12 +1,13 @@
 {% macro displayPitchesList(pitch_list) %}
 
     {% for pitch in pitch_list %}
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 movie-card">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 panel bg">
             <p>{{ pitch_content }}</p>
             <li class="text-center">
                 <a href="/pitch/{{pitch.id}}">Go to pitch</a>
             </li>
-            <p>Posted by:{{pitch.user.username}}</p>
+            <p>{{pitch.pitch_content}}</p>
+            <h5>Posted by: {{pitch.user.username}}</h5>
         </div>
 
     {% endfor %}

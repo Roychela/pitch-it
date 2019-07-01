@@ -50,8 +50,6 @@ def pitch(id):
         new_comment = Comments(comment = comment,user = current_user,pitch_id = pitch)
 
         new_comment.save_comment()
-
-
     comments = Comments.get_comments(pitch)
 
     return render_template("pitch.html", pitch = pitch, comment_form = comment_form, comments = comments, date = posted)   
